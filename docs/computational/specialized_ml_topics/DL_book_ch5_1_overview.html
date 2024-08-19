@@ -1,0 +1,467 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Auto-Encoding Variational Bayes" href="auto_encoding_variational_bayes.html" /><link rel="prev" title="Specialized topics in machine learning and statistics" href="../specialized_topics_in_ml_and_stats.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Machine Learning Basics - Craft Sessions Sandve Lab documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">Craft Sessions Sandve Lab  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">Craft Sessions Sandve Lab  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started_bioinf.html">Getting started in bioinformatics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../biology/genomics_intro.html">Getting started with genomics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../biology/immunology_intro.html">Getting started with immunology and adaptive immune receptors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../analysis_design.html">Designing an analysis</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Designing an analysis</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../statistics.html">Statistics: reference</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../ml_and_causality.html">Machine learning and causal inference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Machine learning and causal inference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ml_intro/overview.html">Brief overview of machine learning in computational biology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml_intro/intro_to_ml.html">Introduction to Machine Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml_intro/ml_models.html">Introduction to machine learning models and algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml_intro/data_representation.html">Data representation in machine learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml_intro/ml_model_comparison_and_uncertainty.html">Machine learning model comparison and uncertainty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml_intro/transparency_and_reproducibility.html">Transparency and reproducibility in machine learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../specialized_topics_in_ml_and_stats.html">Specialized topics in machine learning and statistics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Specialized topics in machine learning and statistics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Machine Learning Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_encoding_variational_bayes.html">Auto-Encoding Variational Bayes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variational_inference.html">Notes on variational inference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../biology/genomics.html">Genomics: references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../biology/immunology.html">Immunology: references</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../programming.html">Programming</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Programming</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../programming_intro.html">Getting started with programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clean_code.html">Clean code</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../setting_up_project.html">Setting up and organizing a project</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Setting up and organizing a project</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../sharing_tools.html">Services to share developed tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../containers.html">Containers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../running_analysis.html">Running an analysis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../writing.html">Academic Writing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Academic Writing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../writing/essay_master_students.html">Writing an essay for master students</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/computational/specialized_ml_topics/DL_book_ch5_1_overview.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="machine-learning-basics">
+<h1>Machine Learning Basics<a class="headerlink" href="#machine-learning-basics" title="Link to this heading">¶</a></h1>
+<p>These are notes from the Chapter 5.1 of the <a class="reference external" href="https://www.deeplearningbook.org/">Deep Learning book by Goodfellow et al. 2016</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Aim: provide a broad overview of the concepts relating to the Machine Learning Basics Chapter of the Deep Learning book</p>
+<p>Level: any 🌱🌿🌳</p>
+</div>
+<p>As has been described previously in the Knowledge Base, Machine Learning can be defined in many ways. One principle starting point is with the definition of “learning”. With an objective baseline established for learning, progression in decision-making can be effectively measured and evaluated. In the following we explore and build on the concept of learning provided by Tom Mitchell in 1997 and present a real-world example which incorporates this definition.</p>
+<section id="definition-of-learning-and-a-practical-example">
+<h2>Definition of “Learning” and a Practical Example<a class="headerlink" href="#definition-of-learning-and-a-practical-example" title="Link to this heading">¶</a></h2>
+<p>– Mitchell 1997</p>
+<blockquote>
+<div><p>“A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.”</p>
+</div></blockquote>
+<p>Learning as defined by Mitchell is comprised of an <strong>Experience (E)</strong>, <strong>Performance (P)</strong>, and <strong>Task (T)</strong> with the interaction between these
+elements giving structure to the learning system. The unique combination of these elements therefore articulates the environments, observations and
+scores that one can expect of the learning system. Let us delve into each individually.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="This figure shows the elements of a learning system, comprising of a training experience, performance measure and learning task." class="align-center" src="../../_images/learning_system.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple">
+<li><p><strong>Task</strong>: Tasks describe the kind of observations a learner processes, often times represented by an example (i.e., observation instance) containing a collection of Features. Tasks in the real-world typically are of a classification or regression type.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Classification: solving classification tasks involves the learning algorithm producing a function f:Rⁿ→ {1, … , k} which assigns an input described by vector x to a category identified by numeric code k</p></li>
+<li><p>Regression: solving regression tasks involves the learning algorithm producing a function f:Rⁿ→ R which assigns an input described by vector x to a numeric scalar</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Performance</strong>: Performance exacts the quantitative evaluation used to design metrics in a learning system. Measures of performance are tied to the nature of the task, for example metrics can be:</p></li>
+</ol>
+<ul class="simple">
+<li><p>In Classification: Accuracy, Precision and Recall, F1-score, AU-ROC</p></li>
+<li><p>In Regression: Mean Absolute Error (MAE), Mean Squared Error (MSE), Root Mean Squared Error (RMSE), R² (R-Squared)</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Experience</strong>: Experience defines the training experience the system will face and this encompasses the scope of learning situations surrounding the learning system. A number of attributes contributes to a training experience.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Feedback: Is the nature of feedback direct or indirect, for example do training observations have direct training outcomes (i.e., labels) or is there indirect information for the learner to infer outcomes</p></li>
+<li><p>Control: To what extent does the learner control the sequence of training examples, is part of the training experience provided by a random process outside the learner’s control? Determining the supervised or unsupervised nature of a learner can help in understanding it’s control over the training experience</p></li>
+<li><p>Representation: How well does the learner represent the distribution of examples over which the final system Performance (P) is measured? The learner’s experience is more reliable when training examples follow the distribution similar to future test examples</p></li>
+</ul>
+</section>
+<section id="solving-a-logistic-regression-problem">
+<h2>Solving a Logistic Regression Problem<a class="headerlink" href="#solving-a-logistic-regression-problem" title="Link to this heading">¶</a></h2>
+<p>Imagine a practical circumstance in which a learning system is critical. Multiple Hospital’s in Norway require for resourcing, infrastructure and logistical reasons to predict the volume of Cesarean section operations which are either classed as planned or not. From the definition of a learner outlined earlier, the following can be established:</p>
+<ul class="simple">
+<li><p>Task: The training task involves predicting if (ŷ) a c-section is planned (1) or not (0) from health data of pregnancies given x <sub>age</sub>, x <sub>marriage</sub>, x <sub>insurance</sub></p></li>
+<li><p>Performance: The desired scoring of the system is the accuracy of positive c-sections predicted as True Positives (TP) in a classification matrix</p></li>
+<li><p>Experience: The training experience involves observational samples with labels from Norwegian hospitals drawn from public registries</p></li>
+</ul>
+<p>In probabilistic terms we are trying to predict the probability that a cesarean is planned given features of the patient such as measures of health and economic markers - P(cesarean=1|age, marriage, insurance).</p>
+<p>In logistic regression the formula is input through the sigmod function (y = sigmod (x <sub>age</sub> + x <sub>marriage</sub> + x <sub>insurance</sub> + c)) which provides probabilities ranging from 0 to 1 before predicting the final result. The prediction then uses a logit function to produce the logarithm of odds by exponentiating the log-odds (y = 1 / (1 + e -(x <sub>age</sub> + x <sub>marriage</sub> + x <sub>insurance</sub> + c))), the value of y is then designated 1 if it is above 0.5 and 0 if below 0.5, normalising the output of the equation to the classification labels of our problem.</p>
+</section>
+<section id="components-of-a-machine-learning-ml-algorithm">
+<h2>Components of a Machine Learning (ML) Algorithm<a class="headerlink" href="#components-of-a-machine-learning-ml-algorithm" title="Link to this heading">¶</a></h2>
+<p>In traditional programming, we directly instruct the program on the rules to come to a desired outcome (i.e., Rule + data = Outcome). But in ML the logic is reversed for developing rules (i.e., Data + Outcome = Rule). In ML we start by describing the output (the format of the rule) and use this as guidance of what we want the learner to understand, <strong>without explicitly telling it what these rules are</strong>. In theoretical terms, the data we use becomes a key into a <strong>representation space</strong> of possible rules.</p>
+<p>After choosing a representational space, we need large volumes of <strong>data</strong> examples with “gold standard” labels which incidate normal and targeted problem instances.</p>
+<p>Next, we need a <strong>loss function</strong> which evaluates potential rules and defines an objective to minimize. The reasoning behind defining a scoring (i.e., loss) function is to allow for a mechanism to indirectly define rules. For example, if a loss function produces rules which are too complex, it can be penalized to encourage the learner not to search for overcomplicated rules which closely mimic the data, ultimialty causing the model to fail to generalize (i.e., <em>Overfitting</em>).</p>
+<p>Lastly, a ML algorithm requires an <strong>optimizer</strong>, which uses educated guesses to improve rules by minimizing loss. A popular example, specifically in the field of deep learning is gradient descent, which optimises a loss function by moving in the direction opposite to the steepest ascent.</p>
+<p>These components to a ML algorithm, to Represent (Representational Space), Evaluate (Loss function of data) and Select (Optimizer) forwards the notion that ML is a process of optimizing loss over a representational space.</p>
+</section>
+<section id="machine-learning-as-optimizing-search">
+<h2>Machine Learning as Optimizing Search<a class="headerlink" href="#machine-learning-as-optimizing-search" title="Link to this heading">¶</a></h2>
+<p>A foundational question in ML is: how do we tell the difference between <strong>real signals that generalize</strong> to new situations (i.e., environments with unforseen inputs) and <strong>spurious associations</strong> (i.e., noise due to random chance).
+The problem of spurious associations is encapulated by <em>Overfitting</em> which is a pitfall that occurs when a rule looks to behave well on data that it is picked for but functions poorly on the broader set of environments where the rule is applied.</p>
+<p>The deep learning book provides further clarification on factors determining how well a ML algorithm will perform:</p>
+<p>– Goodfellow et al. 2016</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Make the training error small.</p></li>
+<li><p>Make the gap between training and test error small.</p></li>
+</ol>
+</div></blockquote>
+<p>In there perspective, the first factor relates to the challenge of underfitting when models are not able to obtain a sufficiently low error value on the training set. The second factor relates to the challenge of overfitting when the gap between the training error and test error is too large, that is to say that the model functions poorly on the holdout testing set.</p>
+<p>Understanding the role of partitioning data into a training (i.e., data used to construct the rule), validation (i.e., data used to decide on a representational space) and test set (i.e., data used to evaluate the final rule) allows for a systematic approach to designing models that are relevant to data collected for the future, not just for data that the model is trained on in the present. In principle Machine Learning seeks to optimally search a search space, avoid underfitting and overfitting and reach a robust optimal rule which extends to new situations.</p>
+</section>
+<section id="overcoming-overfitting">
+<h2>Overcoming Overfitting<a class="headerlink" href="#overcoming-overfitting" title="Link to this heading">¶</a></h2>
+<p>The Machine Learning field has developed techniques which have directly tackled the problem of overfitting. Two of the most prominent are Cross-validation and Regularization.</p>
+<ul class="simple">
+<li><p>Cross-validation: Cross-validation helps models remain accuracte and also avoid using too big of a representational space by setting aside splits of training/testing data which help to assess generalization in a more fine-grained manner. The model in 5-fold cross-validation for example is trained on 5 different versions of training data and evaluated on 5 different versions of testing data, encouraging consistency in the process of evaluation.</p></li>
+<li><p>Regularization: Regularization helps models to remain simple by including a component to the loss function which penalises model complexity. This modification makes rules more consistent by penalising high error scores and large representational spaces. Examples of regularization include Ridge Regression or Lasso Regression.</p></li>
+</ul>
+</section>
+<section id="recommended-literature">
+<h2>Recommended literature<a class="headerlink" href="#recommended-literature" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Goodfellow IJ, Bengio Y, Courville A. Deep Learning. MIT Press; 2016. <a class="reference external" href="https://mitpress.mit.edu/books/deep-learning">https://mitpress.mit.edu/books/deep-learning</a></p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="auto_encoding_variational_bayes.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Auto-Encoding Variational Bayes</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../specialized_topics_in_ml_and_stats.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Specialized topics in machine learning and statistics</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Sandve Lab UiO
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Machine Learning Basics</a><ul>
+<li><a class="reference internal" href="#definition-of-learning-and-a-practical-example">Definition of “Learning” and a Practical Example</a></li>
+<li><a class="reference internal" href="#solving-a-logistic-regression-problem">Solving a Logistic Regression Problem</a></li>
+<li><a class="reference internal" href="#components-of-a-machine-learning-ml-algorithm">Components of a Machine Learning (ML) Algorithm</a></li>
+<li><a class="reference internal" href="#machine-learning-as-optimizing-search">Machine Learning as Optimizing Search</a></li>
+<li><a class="reference internal" href="#overcoming-overfitting">Overcoming Overfitting</a></li>
+<li><a class="reference internal" href="#recommended-literature">Recommended literature</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>
